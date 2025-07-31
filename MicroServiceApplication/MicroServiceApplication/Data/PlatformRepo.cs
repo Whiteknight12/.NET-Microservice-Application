@@ -13,17 +13,22 @@ namespace MicroServiceApplication.Data
         
         public void CreatePlatform(Platform platform)
         {
-            throw new NotImplementedException();
+            if (platform == null)
+            {
+                throw new ArgumentNullException(nameof(platform), "Platform cannot be null.");
+            }
+            _db.Platforms.Add(platform);
         }
 
         public IEnumerable<Platform> GetAllPlatforms()
         {
-            throw new NotImplementedException();
+            return _db.Platforms.ToList();
         }
 
         public Platform GetPlatformById(int id)
         {
-            throw new NotImplementedException();
+            return _db.Platforms.FirstOrDefault(p => p.Id == id) 
+                   ?? throw new KeyNotFoundException($"Platform with ID {id} not found.");
         }
 
         public bool SaveChanges()
